@@ -16,62 +16,17 @@ public class KnowledgeTable : MonoBehaviour
     public EffectList m_writeEffects = new();
     public ZNetView _znv = null!;
 
-    public void Awake()
-    {
-        GetTableWriteEffects();
-        m_readSwitch = transform.Find("ReadMap").GetComponent<Switch>();
-        m_writeSwitch = transform.Find("WriteMap").GetComponent<Switch>();
-        Transform guidePoint = transform.Find("GuidePoint");
-        if (!guidePoint.TryGetComponent(out GuidePoint component)) return;
-        component.m_ravenPrefab = GetRavens();
-    }
-
     public void Start()
     {
-        _znv = GetComponent<ZNetView>();
+        ZNetView component = GetComponent<ZNetView>();
+        if (!component) return;
+        _znv = component;
         _znv.Register<string>(nameof(RPC_KnowledgeData),RPC_KnowledgeData);
         m_readSwitch.m_onUse += OnRead;
         m_readSwitch.m_onHover += GetReadHoverText;
         m_writeSwitch.m_onUse += OnWrite;
         m_writeSwitch.m_onHover += GetWriteHoverText;
     }
-
-    private void GetTableWriteEffects()
-    {
-        if (!ZNetScene.instance) return;
-        GameObject VFX_cartographer_table_write = ZNetScene.instance.GetPrefab("vfx_cartographertable_write");
-        if (!VFX_cartographer_table_write) return;
-        m_writeEffects = new EffectList()
-        {
-            m_effectPrefabs = new[]
-            {
-                new EffectList.EffectData()
-                {
-                    m_prefab = VFX_cartographer_table_write,
-                    m_enabled = true,
-                    m_variant = -1,
-                    m_attach = false,
-                    m_follow = false,
-                    m_inheritParentRotation = true,
-                    m_inheritParentScale = false,
-                    m_multiplyParentVisualScale = false,
-                    m_randomRotation = false,
-                    m_scale = false
-                }
-            }
-        };
-    }
-    
-    private static GameObject? GetRavens()
-    {
-        List<GameObject> allObjects = Resources.FindObjectsOfTypeAll<GameObject>().ToList();
-        GameObject Ravens =
-            allObjects.Find(item => item.name == "Ravens" && item.transform.GetChild(0).name == "Hugin");
-        if (!Ravens) return null;
-
-        return Ravens;
-    }
-
     private string GetReadHoverText()
     {
         return !PrivateArea.CheckAccess(transform.position, flash: false)

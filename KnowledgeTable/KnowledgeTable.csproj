@@ -112,6 +112,7 @@
         <Compile Include="KnowledgeTable\Data.cs" />
         <Compile Include="KnowledgeTable\KnowledgeTable.cs" />
         <Compile Include="KnowledgeTable\LoadAssets.cs" />
+        <Compile Include="KnowledgeTable\ZNetScenePatches.cs" />
         <Compile Include="Managers\LocalizationManager.cs" />
         <Compile Include="Managers\MaterialReplacer.cs" />
         <Compile Include="Managers\PieceEffectManager.cs" />

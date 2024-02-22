@@ -18,7 +18,10 @@ public static class LoadAssets
         KnowledgeTable.RequiredItems.Add("Coal", 10, true);
         MaterialReplacer.RegisterGameObjectForMatSwap(KnowledgeTable.Prefab.transform.Find("$part_replace_dest").gameObject);
         MaterialReplacer.RegisterGameObjectForMatSwap(KnowledgeTable.Prefab.transform.Find("model/$part_replace").gameObject);
-        KnowledgeTable.Prefab.AddComponent<KnowledgeTable>();
+        KnowledgeTable component = KnowledgeTable.Prefab.AddComponent<KnowledgeTable>();
+        component.m_readSwitch = KnowledgeTable.Prefab.transform.Find("ReadMap").GetComponent<Switch>();
+        component.m_writeSwitch = KnowledgeTable.Prefab.transform.Find("WriteMap").GetComponent<Switch>();
+        
         PieceEffectManager.PrefabsToSet.Add(KnowledgeTable.Prefab);
     }
 }

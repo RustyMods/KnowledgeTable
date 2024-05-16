@@ -16,7 +16,7 @@ namespace KnowledgeTable
     public class KnowledgeTablePlugin : BaseUnityPlugin
     {
         internal const string ModName = "KnowledgeTable";
-        internal const string ModVersion = "1.0.1";
+        internal const string ModVersion = "1.0.4";
         internal const string Author = "RustyMods";
         private const string ModGUID = Author + "." + ModName;
         private static string ConfigFileName = ModGUID + ".cfg";
